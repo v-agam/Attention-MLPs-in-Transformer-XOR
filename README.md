@@ -87,9 +87,9 @@ If you use this work or build upon it, please cite:
 
 ```bibtex
 @misc{xor-transformer-interpretability,
-  author = {Agam Vuppulury, Gargi Rathi, Srujananjali Medicharla, Vaaruni Desai},
-  title = {The Role of Attention and MLPs in Transformer XOR Computation},
-  year = {2025},
-  howpublished = {\url{https://github.com/Attention & MLPs in Transformer XOR}}
+  author       = {Agam Vuppulury and Gargi Rathi and Srujananjali Medicharla and Vaaruni Desai},
+  title        = {The Role of Attention and MLPs in Transformer XOR Computation},
+  year         = {2025},
+  howpublished = {\url{https://github.com/v-agam/Attention-MLPs-in-Transformer-XOR}}
 }
 
