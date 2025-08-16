@@ -1,50 +1,46 @@
 # The Role of Attention and MLPs in Transformer XOR Computation
 
-This repository contains code, experiments, and analysis for studying how small Transformer models learn and compute the **XOR function** on bit sequences. We extend mechanistic interpretability techniques from the well-studied **4-bit XOR** task to the more challenging **7-bit XOR**, providing a detailed account of the internal circuits, attention head roles, and neuron selectivity.  
+This repository contains code, experiments, and analysis for studying how small Transformer models learn and compute the **XOR function** on bit sequences. We apply mechanistic interpretability techniques to **4-bit XOR** task and also to the **7-bit XOR** task, providing a detailed account of the internal circuits, attention head roles, and neuron selectivity while also identifying the scalable learnings as the input bit size grows.  
 
 ---
 
 ## 🚀 Research Motivation  
 XOR is a classic benchmark for testing nonlinear computation in neural networks. Despite its simplicity, XOR requires mechanisms beyond linear separability, making it an ideal test case for probing **how Transformers actually compute**.  
 
-- Prior work has characterized **4-bit XOR**, showing a division of labor between **attention (copying inputs)** and **MLPs (introducing nonlinearity)**.  
-- Here, we investigate whether these mechanisms scale to **7-bit XOR**, where the model must generalize over longer offsets.  
+- In this work, we first analyze how a Transformer learns the **4-bit XOR** task, revealing a clear division of labor between **attention (copying inputs)** and **MLPs (introducing nonlinearity)**.  
+- We then extend the same framework to the more challenging **7-bit XOR**, to test whether these mechanisms remain stable and how they adapt when the model must generalize over longer offsets.  
 
 ---
 
 ## 🧪 Experiments  
 
-We trained a 1-layer, 2-head Transformer on the 7-bit XOR task and analyzed it using mechanistic interpretability tools:  
+We conducted a series of controlled experiments on Transformer models to study how they learn the XOR function.  
 
-1. **Attention Analysis**  
-   - Head 0 emerges as the primary **routing head**, attending from positions 7–13 back to 0–6.  
-   - Path patching and ablations confirm that this head is causally necessary (Head 0 ablation → acc ≈ 0.379).  
-   - Head 1 plays a secondary/auxiliary role (ablation → acc ≈ 0.838).  
+1. **4-bit XOR (Baseline Study)**  
+   - The 2-layer, 2-head Transformer learns XOR by splitting roles:  
+     - **Attention heads** copy the relevant input bits across positions.  
+     - **MLP neurons** introduce the nonlinearity required for XOR.  
+   - Linear probes confirm that XOR only becomes separable in the MLP layer.  
+   - Neuron selectivity emerges with clear **00, 01, 10, 11 detectors**, reconstructing XOR as a linear combination of pro-XOR and anti-XOR neuron groups.  
 
-2. **Linear Probes**  
-   - Early layers encode only local bits (`bj`).  
-   - Attention injects the far bit (`bi`), but XOR remains inseparable.  
-   - At the MLP layer, XOR becomes linearly separable (probe acc = 1.0).  
-   - Final residual streams mix both raw inputs and the XOR feature.  
-
-3. **Neuron Selectivity**  
-   - MLP neurons specialize into **00, 01, 10, 11 detectors**.  
-   - XOR is reconstructed as a linear combination of pro-XOR (01,10) and anti-XOR (00,11) neuron groups.  
-   - Compared to 4-bit XOR, the clustering is less sharp, suggesting more distributed representations in 7-bit.  
-
-4. **Ablation Studies**  
-   - Random-K vs. Top-K ablations show that a small subset of neurons (≈16 out of 256) suffices for XOR.  
-   - Accuracy remains robust until ≈128 neurons are removed, then collapses.  
-   - Overlap-based rankings fail, confirming XOR is not aligned to a single direction but distributed across subspaces.  
+2. **7-bit XOR (Extended Study)**  
+   - Scaling up to 7 bits, Head 0 emerges as the primary **routing head**, attending from later positions back to the earlier inputs.  
+   - Path patching and ablations confirm causal necessity: removing Head 0 collapses accuracy (≈0.379), while Head 1 is only partially necessary (≈0.838).  
+   - Linear probes show the same pattern as in 4-bit: raw bits are linearly encoded early, XOR becomes separable only at the MLP layer.  
+   - Neuron selectivity is less cleanly separated than in 4-bit, with more overlap among the groups, suggesting a **more distributed representation**.  
+   - Ablation studies show XOR remains robust even when many neurons are silenced; a small subset (~16 of 256 neurons) suffices for correct computation.  
 
 ---
 
 ## 📊 Key Findings  
 
-- **Stable Mechanism Across Tasks:** The **attention → MLP → XOR** pipeline discovered in 4-bit tasks persists in the 7-bit model.  
-- **Head Assignment is Flexible:** In 4-bit, Head 1 was the router; in 7-bit, Head 0 takes that role. This indicates head specialization is determined by training dynamics, not architecture.  
-- **Neuron Efficiency:** XOR computation is highly redundant yet compressible — only a handful of neurons are strictly necessary.  
-- **Scalable Circuit Motif:** Despite longer offsets, the Transformer reuses the same compositional circuit structure.  
+- **Shared Mechanism Across Scales:** Both 4-bit and 7-bit models rely on the same compositional circuit: **attention copies → MLP nonlinearity → XOR output**.  
+- **Flexible Head Specialization:** In 4-bit, Head 1 takes the routing role, while in 7-bit it shifts to Head 0 — showing that head assignment is flexible and training-dependent.  
+- **Neuron Efficiency and Redundancy:** XOR requires very few specialized neurons, though the network recruits many more, indicating redundancy and robustness.  
+- **Representation Sharpness vs. Distribution:**  
+  - 4-bit XOR produces **cleanly clustered 00/01/10/11 neurons**.  
+  - 7-bit XOR produces **more overlapping, distributed groups**, suggesting higher complexity in scaling.  
+- **Generalization of Circuit Motif:** Despite longer offsets and higher task complexity, the **same structural motif** discovered in 4-bit scales naturally to 7-bit.
 
 ---
 
@@ -66,11 +62,9 @@ We fit a PCA basis on activations from the final training checkpoint to ensure s
 
 ```text
 .
-├── data/              # Training datasets (XOR bitstrings)
-├── models/            # Saved Transformer checkpoints
-├── notebooks/         # Jupyter notebooks for analysis
-├── figures/           # Visualizations (attention maps, probes, ablations)
-├── src/               # Core code for training + interpretability
+├── Code/            # Core code for training + interpretability
+├── Figures/         # Figures & plots from analysis
+├── Models/           # Trained model weights            
 └── README.md          # This file
 ```
 
