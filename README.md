@@ -14,7 +14,7 @@ XOR is a classic benchmark for testing nonlinear computation in neural networks.
 
 ## 🧪 Experiments  
 
-We trained a 2-layer, 2-head Transformer on the 7-bit XOR task and analyzed it using mechanistic interpretability tools:  
+We trained a 1-layer, 2-head Transformer on the 7-bit XOR task and analyzed it using mechanistic interpretability tools:  
 
 1. **Attention Analysis**  
    - Head 0 emerges as the primary **routing head**, attending from positions 7–13 back to 0–6.  
