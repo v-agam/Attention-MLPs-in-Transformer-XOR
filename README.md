@@ -64,12 +64,15 @@ We fit a PCA basis on activations from the final training checkpoint to ensure s
 
 ## 📂 Repo Structure  
 
-├── data/ # Training datasets (XOR bitstrings)
-├── models/ # Saved Transformer checkpoints
-├── notebooks/ # Jupyter notebooks for analysis
-├── figures/ # Visualizations (attention maps, probes, ablations)
-├── src/ # Core code for training + interpretability
-└── README.md # This file
+```text
+.
+├── data/              # Training datasets (XOR bitstrings)
+├── models/            # Saved Transformer checkpoints
+├── notebooks/         # Jupyter notebooks for analysis
+├── figures/           # Visualizations (attention maps, probes, ablations)
+├── src/               # Core code for training + interpretability
+└── README.md          # This file
+```
 
 
 ---
