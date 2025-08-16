@@ -17,7 +17,7 @@ XOR is a classic benchmark for testing nonlinear computation in neural networks.
 We conducted a series of controlled experiments on Transformer models to study how they learn the XOR function.  
 
 1. **4-bit XOR (Baseline Study)**  
-   - The 2-layer, 2-head Transformer learns XOR by splitting roles:  
+   - The 1-layer, 2-head Transformer learns XOR by splitting roles:  
      - **Attention heads** copy the relevant input bits across positions.  
      - **MLP neurons** introduce the nonlinearity required for XOR.  
    - Linear probes confirm that XOR only becomes separable in the MLP layer.  
@@ -56,6 +56,7 @@ We conducted a series of controlled experiments on Transformer models to study h
 ## PCA-based Representation Tracking
 
 We fit a PCA basis on activations from the final training checkpoint to ensure stable projection axes. All earlier checkpoints are projected into this fixed space, with silhouette scores tracking label separation and locked-axis GIFs visualizing how representations cluster and evolve during training.
+
 ---
 
 ## 📂 Repo Structure  
