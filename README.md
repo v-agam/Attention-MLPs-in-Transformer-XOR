@@ -1,5 +1,4 @@
 # How-Transformers-Implement-XOR-A-Mechanistic-Perspective
-# Mechanistic Interpretability of Transformers on XOR Tasks  
 
 This repository contains code, experiments, and analysis for studying how small Transformer models learn and compute the **XOR function** on bit sequences. We extend mechanistic interpretability techniques from the well-studied **4-bit XOR** task to the more challenging **7-bit XOR**, providing a detailed account of the internal circuits, attention head roles, and neuron selectivity.  
 
