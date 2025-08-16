@@ -1,4 +1,4 @@
-# How-Transformers-Implement-XOR-A-Mechanistic-Perspective
+# The Role of Attention and MLPs in Transformer XOR Computation
 
 This repository contains code, experiments, and analysis for studying how small Transformer models learn and compute the **XOR function** on bit sequences. We extend mechanistic interpretability techniques from the well-studied **4-bit XOR** task to the more challenging **7-bit XOR**, providing a detailed account of the internal circuits, attention head roles, and neuron selectivity.  
 
@@ -57,6 +57,9 @@ We trained a 2-layer, 2-head Transformer on the 7-bit XOR task and analyzed it u
 | Neuron Selectivity        | Clean 00/01/10/11      | More overlapping groups|
 | Mechanism Structure       | Attention → MLP → XOR  | Attention → MLP → XOR  |
 
+## PCA-based Representation Tracking
+
+We fit a PCA basis on activations from the final training checkpoint to ensure stable projection axes. All earlier checkpoints are projected into this fixed space, with silhouette scores tracking label separation and locked-axis GIFs visualizing how representations cluster and evolve during training.
 ---
 
 ## 📂 Repo Structure  
@@ -87,9 +90,9 @@ If you use this work or build upon it, please cite:
 
 ```bibtex
 @misc{xor-transformer-interpretability,
-  author = {Your Name},
-  title = {Mechanistic Interpretability of Transformers on XOR Tasks},
+  author = {Agam Vuppulury, Gargi Rathi, Srujananjali Medicharla, Vaaruni Desai},
+  title = {The Role of Attention and MLPs in Transformer XOR Computation},
   year = {2025},
-  howpublished = {\url{https://github.com/How-Transformers-Implement-XOR-A-Mechanistic-Perspective}}
+  howpublished = {\url{https://github.com/Attention & MLPs in Transformer XOR}}
 }
 
