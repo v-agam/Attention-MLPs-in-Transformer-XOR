@@ -79,18 +79,5 @@ We fit a PCA basis on activations from the final training checkpoint to ensure s
 - Linear probes for feature separability  
 - Attention pattern visualization  
 - Neuron selectivity and ablation analysis  
-
 ---
-
-## 📌 Citation  
-
-If you use this work or build upon it, please cite:  
-
-```bibtex
-@misc{xor-transformer-interpretability,
-  author       = {Agam Vuppulury and Gargi Rathi and Srujananjali Medicharla and Vaaruni Desai},
-  title        = {The Role of Attention and MLPs in Transformer XOR Computation},
-  year         = {2025},
-  howpublished = {\url{https://github.com/v-agam/Attention-MLPs-in-Transformer-XOR}}
-}
 
